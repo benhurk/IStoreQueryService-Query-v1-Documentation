@@ -1,19 +1,23 @@
 # IStoreQueryService/Query/v1
 
-This is a Steam Web API endpoint that is **not officially documented, this is only what i tested an know how it works**. I documented this to use it in [Steam Pick](https://github.com/benhurk/Steam-Pick/tree/main). You can check and test everything i didn't document [here](https://steamapi.xpaw.me/#IStoreQueryService/Query). 
+This is a Steam Web API endpoint that is **not officially documented, this is only what i tested and know how it works**. You can test it yourself [here](https://steamapi.xpaw.me/#IStoreQueryService/Query).
 
-```http
-  GET https://api.steampowered.com/IStoreQueryService/Query/v1/?key=&input_json=
-```
+<hr>
 
 Returns filtered store data for up to 1000 apps per request.
+
+```http
+  GET https://api.steampowered.com/IStoreQueryService/Query/v1/?key={KEY}&input_json={INPUT_JSON}
+```
 
 | Param        | Type     | Description                        |
 | :----------- | :------- | :--------------------------------- |
 | `key`        | `string` | A Steam Web API Key. **Required**  |
 | `input_json` | `string` | **URI encoded** json. **Required** |
 
-##### `input_json`:
+<br>
+
+#### `input_json`:
 
 ```json
 {
@@ -23,14 +27,18 @@ Returns filtered store data for up to 1000 apps per request.
 }
 ```
 
+<br>
+
 -   **"query"**:
 
 | Property | Type     | Description                                                 |
 | -------- | -------- | ----------------------------------------------------------- |
-| `start`  | `number` | From which item the response begins, use as pagination.     |
+| `start`  | `number` | From which item index the response begins, use as pagination.     |
 | `count`  | `number` | Max of items to return (default: 10, max: 1000).            |
 | `sort`   | `number` | An id for sorting. Tells the response how to sort the data. |
 | `filter` | `object` | An object with filter configuration.                        |
+
+<br>
 
 `sort`:
 
@@ -38,6 +46,8 @@ Returns filtered store data for up to 1000 apps per request.
 -   **2** - Ascending `appid`.
 -   **20** - Most recent.
 -   **21** - Percentage of positive reviews (desc).
+
+<br>
 
 `filter`:
 
@@ -50,8 +60,9 @@ Returns filtered store data for up to 1000 apps per request.
 | `tagids_exclude`       | `number[]` | Don't return apps that contains the specified tag ids. |
 | `global_top_n_sellers` | `number`   | Return only apps in the top "n" most selled.           |
 
+<br>
 
-`type_filter`:
+`type_filters`:
 
 -   "include_apps" `boolean`
 -   "include_packages" `boolean`
@@ -66,6 +77,8 @@ Returns filtered store data for up to 1000 apps per request.
 -   "include_series" `boolean`
 -   "include_music" `boolean`
 
+<br>
+
 `tagids_must_match`:
 
 To specify the tag ids you must pass in objects with the `tagids` array. Each `tagids` can only include 1 tag id, to specify multiple tags you need to pass in multiple objects with `tagids`.
@@ -74,13 +87,18 @@ To specify the tag ids you must pass in objects with the `tagids` array. Each `t
 "tagids_must_match": [{"tagids": ["1628"]}, {"tagids": ["1664"]}]
 ```
 
+<br>
+
 -   **"context"**:
 
 | Property       | Type     | Description                                                                                      |
 | -------------- | -------- | ------------------------------------------------------------------------------------------------ |
 | `elanguage`    | `number` | An ID for the language that the data will be returned in (if avaiable). Defaults to 0 (english). |
 | `country_code` | `string` | e.g. 'US', 'FR', 'DE', 'BR'. Which country to pull data from. **Required**                       |
+
 > `country_code`doesn't seem to affect data like reviews or price.
+
+<br>
 
 - **"data_request":**
 
